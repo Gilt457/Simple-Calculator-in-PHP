@@ -1,0 +1,228 @@
+/* Professional Calculator CSS */
+
+:root {
+  --primary-color: #3a86ff;
+  --primary-dark: #0a66c2;
+  --secondary-color: #f5f7fa;
+  --text-color: #2d3748;
+  --error-color: #e53e3e;
+  --success-color: #38a169;
+  --border-radius: 8px;
+  --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #edf2f7;
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.calculator-container {
+  width: 100%;
+  max-width: 450px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+.calculator-header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.calculator-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.calculator-header h1 i {
+  font-size: 28px;
+}
+
+.calculator-body {
+  padding: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+input[type="number"] {
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  transition: var(--transition);
+  outline: none;
+  width: 100%;
+}
+
+input[type="number"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.25);
+}
+
+.operation-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+select {
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%234a5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-color: white;
+  transition: var(--transition);
+  outline: none;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.25);
+}
+
+button {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(58, 134, 255, 0.25);
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.result-container {
+  margin-top: 25px;
+}
+
+.calc-result {
+  background-color: #ebf8ff;
+  border: 1px solid #bee3f8;
+  border-radius: var(--border-radius);
+  padding: 20px;
+  text-align: center;
+  transition: var(--transition);
+  animation: fadeIn 0.5s ease;
+}
+
+.operation-display {
+  font-size: 18px;
+  color: #4a5568;
+  margin-bottom: 10px;
+}
+
+.result-value {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.calc-error {
+  background-color: #fff5f5;
+  border: 1px solid #fed7d7;
+  color: var(--error-color);
+  border-radius: var(--border-radius);
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeIn 0.5s ease;
+}
+
+.calc-error i {
+  font-size: 18px;
+}
+
+.calculator-footer {
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  padding: 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #718096;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .calculator-container {
+    max-width: 100%;
+  }
+
+  .calculator-body {
+    padding: 20px;
+  }
+
+  .result-value {
+    font-size: 24px;
+  }
+}
