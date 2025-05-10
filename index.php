@@ -1,150 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>A simple Calculator</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            color: #333;
-        }
-        
-        .calculator-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            width: 350px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-        }
-        
-        h2 {
-            color: #5e72e4;
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-weight: 600;
-            font-size: 28px;
-        }
-        
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        input[type="number"], select {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-        
-        input[type="number"]:focus, select:focus {
-            border-color: #5e72e4;
-            box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.2);
-        }
-        
-        select {
-            cursor: pointer;
-            background-color: white;
-        }
-        
-        input[type="submit"] {
-            background: linear-gradient(to right, #5e72e4, #825ee4);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        
-        input[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(94, 114, 228, 0.4);
-        }
-        
-        .result {
-            margin-top: 25px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            color: #5e72e4;
-            display: inline-block;
-        }
-        
-        .operation-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .operation-container input, .operation-container select {
-            flex: 1;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/reset.css">
+    <link rel="stylesheet" href="CSS/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Professional Calculator</title>
 </head>
 <body>
-<div class="calculator-container">
-    <h2>My Simple Calculator</h2>
-    <form method="GET">
-        <input type="number" name="num1" placeholder="Enter first number" required>
-        <div class="operation-container">
-            <select name="operation">
-                <option value="addition">+</option>
-                <option value="subtraction">-</option>
-                <option value="multiplication">×</option>
-                <option value="division">÷</option>
-            </select>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1><i class="fas fa-calculator"></i> Professional Calculator</h1>
         </div>
-        <input type="number" name="num2" placeholder="Enter second number" required>
-        <input type="submit" name="submit" value="Calculate">
-    </form>
+        <div class="calculator-body">
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
+                <div class="input-group">
+                    <label for="num1">First Number</label>
+                    <input type="number" id="num1" name="num1" placeholder="Enter first number" step="any">
+                </div>
+                
+                <div class="operation-selector">
+                    <label for="operation">Operation</label>
+                    <select id="operation" name="operation">
+                        <option value="addition">Addition (+)</option>
+                        <option value="substraction">Subtraction (-)</option>
+                        <option value="multiplication">Multiplication (×)</option>
+                        <option value="division">Division (÷)</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="num2">Second Number</label>
+                    <input type="number" id="num2" name="num2" placeholder="Enter second number" step="any">
+                </div>
+                
+                <button type="submit"><i class="fas fa-equals"></i> Calculate</button>            </form>
+            
+            <div class="result-container">
+            <?php
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+        // Grab data from input
+        $num1 = filter_input(INPUT_POST, "num1", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $num2 = filter_input(INPUT_POST, "num2", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $operator = htmlspecialchars($_POST['operation']);
 
-    <?php
-    if(isset($_GET['submit'])) {
-        $num1 = $_GET['num1'];
-        $num2 = $_GET['num2'];
-        $operation = $_GET['operation'];
+        // Error Handler
+        $errors = false;
 
-        // set the value of result to zero
-        $result = 0;
-
-        switch ($operation) {
-            case 'addition':
-                $result = $num1 + $num2;
-                break;   
-            case 'subtraction':
-                $result = $num1 - $num2;
-                break;
-            case 'multiplication':
-                $result = $num1 * $num2;
-                break;
-            case "division":
-                $result = ($num2 != 0) ? $num1 / $num2 : "Error: Cannot divide by zero!";
-                break;
-            default:
-                $result = "Invalid operation.";
+        if(empty($num1) || empty($num2) || empty($operator)) {
+            echo "<div class='calc-error'><i class='fas fa-exclamation-triangle'></i> Please fill in all fields</div>";
+            $errors = true;
         }
 
-        echo "<div class='result'>Result: $result</div>";
+        if(!is_numeric($num1) || !is_numeric($num2)) {
+            echo "<div class='calc-error'><i class='fas fa-exclamation-triangle'></i> Please enter valid numbers</div>";
+            $errors = true;
+        }
+
+        // Calculate the numbers if there is no error
+        if(!$errors) {
+            $value = 0;
+            $operation_symbol = "";
+            
+            switch($operator) {
+                case "addition":
+                    $value = $num1 + $num2;
+                    $operation_symbol = "+";
+                    break;
+                case "substraction":
+                    $value = $num1 - $num2;
+                    $operation_symbol = "-";
+                    break;
+                case "multiplication":
+                    $value = $num1 * $num2;
+                    $operation_symbol = "×";
+                    break;
+                case "division":
+                    if($num2 != 0) {
+                        $value = $num1 / $num2;
+                        $operation_symbol = "÷";
+                    } else {
+                        echo "<div class='calc-error'><i class='fas fa-exclamation-triangle'></i> Cannot divide by zero</div>";
+                        $errors = true;
+                    }
+                    break;
+                default:
+                    echo "<div class='calc-error'><i class='fas fa-exclamation-triangle'></i> Something went wrong!</div>";
+                    $errors = true;
+            }
+
+            if(!$errors) {
+                echo "<div class='calc-result'>";
+                echo "<div class='operation-display'>$num1 $operation_symbol $num2</div>";
+                echo "<div class='result-value'><i class='fas fa-equals'></i> " . number_format($value, is_int($value) ? 0 : 2) . "</div>";
+                echo "</div>";
+            }
+        }
     }
     ?>
-</div>
+            </div>
+        </div>
+        <div class="calculator-footer">
+            <p>&copy; <?php echo date("Y"); ?> Professional Calculator</p>
+        </div>
+    </div>
 </body>
 </html>
