@@ -1,0 +1,288 @@
+/* CSS/main.css */
+
+/* Root variables for colors and fonts */
+:root {
+    --bg-color: #f0f0f0;
+    --calculator-bg: #e0e0e0;
+    --display-bg: #ffffff;
+    --display-text-color: #333333;
+    --button-bg: #fafafa;
+    --button-hover-bg: #e0e0e0;
+    --button-active-bg: #d0d0d0;
+    --button-text-color: #333333;
+    --operator-bg: #ff9f0a;
+    --operator-text-color: #ffffff;
+    --operator-hover-bg: #f08f0a;
+    --function-bg: #d6d6d6;
+    --function-hover-bg: #c0c0c0;
+    --equals-bg: #4caf50;
+    --equals-text-color: #ffffff;
+    --equals-hover-bg: #45a049;
+    --clear-bg: #f44336;
+    --clear-text-color: #ffffff;
+    --clear-hover-bg: #e53935;
+    --border-color: #cccccc;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Arial', sans-serif;
+    --font-family-display: 'Consolas', 'Menlo', 'Courier New', monospace;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.calculator-container {
+    width: 100%;
+    max-width: 480px; /* Max width for larger scientific calculator */
+    background-color: var(--calculator-bg);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.calculator-header h1 {
+    font-size: 1.8em;
+    color: var(--display-text-color);
+}
+
+.calculator-header h1 .fa-calculator {
+    margin-right: 10px;
+}
+
+/* Display Area Styling */
+.calculator-body input[name="display"] {
+    width: 100%;
+    height: 70px;
+    background-color: var(--display-bg);
+    color: var(--display-text-color);
+    font-family: var(--font-family-display);
+    font-size: 2.5em; /* Increased font size */
+    text-align: right;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    box-shadow: inset 0 2px 5px var(--shadow-color);
+}
+
+/* Calculator Grid Container (the form) */
+.calculator-body.calculator-grid-container form {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns for a typical layout */
+    grid-gap: 10px;
+}
+
+/* General Button Styling */
+.calculator-body form button {
+    font-family: var(--font-family);
+    font-size: 1.2em; /* Slightly larger font */
+    padding: 18px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 3px var(--shadow-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-body form button:hover {
+    background-color: var(--button-hover-bg);
+    transform: translateY(-1px);
+}
+
+.calculator-body form button:active {
+    background-color: var(--button-active-bg);
+    transform: translateY(0px);
+    box-shadow: inset 0 1px 2px var(--shadow-color);
+}
+
+/* Specific Button Types */
+.calculator-body form .btn-number {
+    /* Default is fine */
+}
+
+.calculator-body form .btn-operator {
+    background-color: var(--operator-bg);
+    color: var(--operator-text-color);
+}
+.calculator-body form .btn-operator:hover {
+    background-color: var(--operator-hover-bg);
+}
+
+.calculator-body form .btn-function {
+    background-color: var(--function-bg);
+}
+.calculator-body form .btn-function:hover {
+    background-color: var(--function-hover-bg);
+}
+
+.calculator-body form .btn-equals {
+    background-color: var(--equals-bg);
+    color: var(--equals-text-color);
+    /* grid-column: span 2; /* Example if equals button spans 2 columns */
+}
+.calculator-body form .btn-equals:hover {
+    background-color: var(--equals-hover-bg);
+}
+
+.calculator-body form .btn-clear { /* AC */
+    background-color: var(--clear-bg);
+    color: var(--clear-text-color);
+}
+.calculator-body form .btn-clear:hover {
+    background-color: var(--clear-hover-bg);
+}
+
+.calculator-body form .btn-delete { /* DEL */
+    background-color: #ffc107; /* Amber color */
+    color: var(--button-text-color);
+}
+.calculator-body form .btn-delete:hover {
+    background-color: #ffb300;
+}
+
+.calculator-body form .btn-memory {
+    background-color: #607d8b; /* Blue Grey */
+    color: #ffffff;
+}
+.calculator-body form .btn-memory:hover {
+    background-color: #546e7a;
+}
+
+
+/* Result Display Area */
+.result-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--display-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-height: 60px;
+    box-shadow: inset 0 1px 3px var(--shadow-color);
+}
+
+.calc-result .operation-display {
+    font-family: var(--font-family-display);
+    font-size: 0.9em;
+    color: #555555;
+    margin-bottom: 5px;
+    word-wrap: break-word; /* Break long expressions */
+}
+
+.calc-result .result-value {
+    font-family: var(--font-family-display);
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--display-text-color);
+    word-wrap: break-word;
+}
+.calc-result .result-value .fa-equals {
+    margin-right: 8px;
+}
+
+.calc-error {
+    font-family: var(--font-family);
+    font-size: 1em;
+    color: var(--clear-bg); /* Use clear button's red for errors */
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid var(--clear-bg);
+    border-radius: 5px;
+    background-color: #ffebee; /* Light pink background for error */
+}
+.calc-error .fa-exclamation-triangle{
+    margin-right: 8px;
+}
+
+
+/* Footer Styling */
+.calculator-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9em;
+    color: #777777;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .calculator-container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .calculator-body input[name="display"] {
+        font-size: 2em;
+        height: 60px;
+    }
+
+    .calculator-body.calculator-grid-container form {
+        grid-template-columns: repeat(5, 1fr); /* Keep 5 columns, buttons will shrink */
+        grid-gap: 8px;
+    }
+
+    .calculator-body form button {
+        font-size: 1em;
+        padding: 15px 8px;
+    }
+    .calculator-header h1 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 420px) {
+     .calculator-body.calculator-grid-container form {
+        grid-template-columns: repeat(4, 1fr); /* Adjust to 4 columns for very small screens */
+        /* This would require re-arranging buttons in HTML or using JS to change layout
+           For now, this CSS change alone might misalign buttons if HTML isn't also adaptive.
+           A safer bet for pure CSS is to let buttons shrink or use flexbox with wrapping.
+           However, the prompt asked for grid, so this is an example.
+           To make this work well, some buttons might need to span columns or rows,
+           or the number of buttons per row in HTML needs to be dynamic.
+           Let's stick to 5 columns and let them shrink to avoid complex HTML changes now.
+        */
+        grid-template-columns: repeat(5, 1fr); /* Reverting to 5 for consistency with HTML */
+    }
+     .calculator-body form button {
+        font-size: 0.9em;
+        padding: 12px 5px; /* Further reduce padding */
+    }
+    .calculator-body input[name="display"] {
+        font-size: 1.8em; /* Further reduce display font */
+    }
+}
+
+/* Specific button adjustments for a 5-column layout.
+   The HTML provided has 5 buttons in the first rows.
+   Example: if 'AC' or 'DEL' needs to span, or if '0' needs to span.
+   Current HTML structure is 5 buttons per row for most rows.
+   The last row with '%' '1/x' 'pi' 'e' and one empty spot (if any) would be 5 items.
+   The equals button is the 5th item on its row.
+*/
+
+/*
+   If specific buttons need to span columns, for example, to make '0' or '=' wider:
+   .calculator-body form button[value="0"] { grid-column: span 2; }
+   .calculator-body form .btn-equals { grid-column: span 2; }
+   This would require adjusting the number of items in `grid-template-columns` or
+   how many buttons are in that row in the HTML.
+   For now, all buttons are 1fr.
+*/
