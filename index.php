@@ -377,9 +377,13 @@
                             switch ($token) {
                                 case 'sin': $valueStack[] = sin(deg2rad($arg)); break; // Assuming degrees input
                                 case 'cos': $valueStack[] = cos(deg2rad($arg)); break; // Assuming degrees input
+                                // Re-typing the 'tan' case to ensure no hidden characters
                                 case 'tan':
-                                    if (cos(deg2rad($arg)) == 0) throw new Exception("Tan undefined for 90, 270, etc. degrees");
-                                    $valueStack[] = tan(deg2rad($arg)); break; // Assuming degrees input
+                                    if (cos(deg2rad($arg)) == 0.0) { // Explicitly using 0.0 for float comparison
+                                        throw new Exception("Tan undefined for 90, 270, etc. degrees");
+                                    }
+                                    $valueStack[] = tan(deg2rad($arg));
+                                    break;
                                 case 'asin':
                                     if ($arg < -1 || $arg > 1) throw new Exception("asin domain error: input must be between -1 and 1");
                                     $valueStack[] = rad2deg(asin($arg)); break; // Output in degrees
